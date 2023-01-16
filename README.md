@@ -7,6 +7,8 @@
 ## Para rodar o projeto digite no terminal:
     $ bundle install
     $ rails db:drop db:create db:migrate db:seed
+    $ rails s
+
 
 
 
