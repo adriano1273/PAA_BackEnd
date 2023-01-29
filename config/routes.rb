@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  resources :movies
 
-  scope '/pokemons' do
+  scope '/movies' do
 
-    get '/', to: 'pokemons#index'
-    get '/:id', to: 'pokemons#show'
+    get '/', to: 'movies#index'
+    get '/:id', to: 'movies#show'
 
   end
   

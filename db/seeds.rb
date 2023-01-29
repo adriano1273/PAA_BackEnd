@@ -6,16 +6,22 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Pokemon.destroy_all
+require 'csv'
 
-json = ActiveSupport::JSON.decode(File.read('db/pokedex.json'))
+Movie.destroy_all
 
-json['pokemon'].each do |item|
-  new_pokemon = Pokemon.new
-  new_pokemon.num = item['num']
-  new_pokemon.name = item['name']
-  new_pokemon.img = item['img']
-  new_pokemon.height = item['height']
-  new_pokemon.weight = item['weight']
-  new_pokemon.save
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'movies.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+
+csv.take(10).each do |row|
+  m = Movie.new
+  m.poster = row['poster']
+  m.runtime = row['runtime']
+  m.title = row['title']
+  m.genre = row['genre']
+  m.director = row['director']
+  m.stars = row['stars']
+  
+  m.save
+  puts "#{m.title} saved"
 end
